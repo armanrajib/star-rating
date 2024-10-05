@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import StarRating from "./StarRating";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <StarRating
+        color="purple"
+        size={40}
+        maxRating={10}
+        className="test"
+        defaultRating={3}
+        onSetRating={() => {}}
+      />
+      <StarRating
+        messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}
+        onSetRating={() => {}}
+      />
+      <UserReview />
+    </>
   );
 }
 
-export default App;
+function UserReview() {
+  const [movieRating, setMovieRating] = useState(0);
+
+  return (
+    <div style={{ margin: "40px 20px" }}>
+      <StarRating
+        color="salmon"
+        messages={["Terrible", "Bad", "Okay", "Good", "Amazing"]}
+        onSetRating={setMovieRating}
+      />
+      <p style={{ fontFamily: "Outfit", fontSize: "32px", margin: 0 }}>
+        This movie has {movieRating === 0 ? "no" : `a ${movieRating}-star`}{" "}
+        rating.
+      </p>
+    </div>
+  );
+}
